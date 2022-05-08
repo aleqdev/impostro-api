@@ -543,7 +543,7 @@ dependencies = [
 [[package]]
 name = "impostro-shared"
 version = "0.1.0"
-source = "git+https://github.com/necromfox/impostro-shared#473a9986dd20f61c3afaa7e47133a4872777ef1e"
+source = "git+https://github.com/necromfox/impostro-shared#6e80d9fda2811ca75943364d2b943dacb63a46bd"
 dependencies = [
  "rand",
  "serde",

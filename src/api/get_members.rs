@@ -1,13 +1,20 @@
-use actix_web::{
-    web::Json, Responder,
-};
+use actix_web::{web::Json, Responder};
 
-use impostro_shared::session::SessionId;
+use impostro_shared::api::GetMembers;
 
-pub async fn get_members(Json((session, group)): Json<(SessionId, String)>, data: crate::DataTy) -> impl Responder {
-    let guard = data.lock().unwrap();  
+pub async fn get_members(
+    Json(GetMembers {
+        session,
+        group_name,
+    }): Json<GetMembers>,
+    data: crate::DataTy,
+) -> impl Responder {
+    let guard = data.lock().unwrap();
     match guard.get_session(session) {
-        Some(session) => Json(Some(session.groups.clone())),
-        None => Json(None)
+        Some(session) => match session.get_group(group_name) {
+            Some(group) => Json(Some(group.clone())),
+            None => Json(None),
+        },
+        None => Json(None),
     }
 }
