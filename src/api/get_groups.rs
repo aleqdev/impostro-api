@@ -2,7 +2,7 @@ use actix_web::{
     web::Json, Responder,
 };
 
-use crate::data::session::SessionId;
+use impostro_shared::session::SessionId;
 
 pub async fn get_groups(Json(session): Json<SessionId>, data: crate::DataTy) -> impl Responder {
     let guard = data.lock().unwrap();  

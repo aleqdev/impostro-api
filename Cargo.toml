@@ -9,3 +9,4 @@ edition = "2021"
 actix-web = "*"
 rand = "*"
 serde = { version = "*", features = ["derive"] }
+impostro-shared = { git = "https://github.com/necromfox/impostro-shared" }

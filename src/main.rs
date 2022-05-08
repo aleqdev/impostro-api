@@ -6,15 +6,14 @@ use actix_web::{
 };
 
 pub mod api;
-pub mod data;
 
-pub type DataTy = Data<Mutex<data::ImpostroData>>;
+pub type DataTy = Data<Mutex<impostro_shared::ImpostroData>>;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .app_data(Data::new(Mutex::new(data::ImpostroData::default())))
+            .app_data(Data::new(Mutex::new(impostro_shared::ImpostroData::default())))
             .route(
                 "sessions",
                 web::get().to(api::get_sessions_fn),

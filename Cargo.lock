@@ -535,6 +535,16 @@ name = "impostro-api"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "impostro-shared",
+ "rand",
+ "serde",
+]
+
+[[package]]
+name = "impostro-shared"
+version = "0.1.0"
+source = "git+https://github.com/necromfox/impostro-shared#473a9986dd20f61c3afaa7e47133a4872777ef1e"
+dependencies = [
  "rand",
  "serde",
 ]
