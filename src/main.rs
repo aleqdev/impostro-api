@@ -11,16 +11,19 @@ pub type DataTy = Data<Mutex<impostro_shared::ImpostroData>>;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
+    let data = Data::new(Mutex::new(
+        impostro_shared::ImpostroData::default(),
+    ));
+    HttpServer::new(move || {
         App::new()
-            .app_data(Data::new(Mutex::new(
-                impostro_shared::ImpostroData::default(),
-            )))
-            .route("sessions", web::get().to(api::get_sessions_fn))
-            .route("groups", web::get().to(api::get_groups_fn))
-            .route("members", web::get().to(api::get_members_fn))
+            .app_data(data.clone())
+            .route("sessions", web::post().to(api::get_sessions_fn))
+            .route("groups", web::post().to(api::get_groups_fn))
+            .route("members", web::post().to(api::get_members_fn))
+            .route("validate_session_id", web::post().to(api::validate_session_id_fn))
+            .route("create_session", web::post().to(api::create_session_fn))
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", 9001))?
     .run()
     .await
 }
