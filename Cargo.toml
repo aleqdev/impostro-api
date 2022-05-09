@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = "*"
+actix-cors = "*"
 rand = "*"
 serde = { version = "*", features = ["derive"] }
 impostro-shared = { git = "https://github.com/necromfox/impostro-shared" }

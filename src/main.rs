@@ -21,7 +21,14 @@ async fn main() -> std::io::Result<()> {
     ));
 
     HttpServer::new(move || {
+        let cors = actix_cors::Cors::default()
+            .allow_any_header()
+            .allow_any_method()
+            .allow_any_origin()
+            .max_age(3600);
+
         App::new()
+            .wrap(cors)
             .app_data(data.clone())
             .route("sessions", web::post().to(api::get_sessions_fn))
             .route("groups", web::post().to(api::get_groups_fn))
