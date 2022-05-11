@@ -2,7 +2,7 @@ use std::sync::Mutex;
 use std::env;
 use actix_web::{
     web::{self, Data},
-    App, HttpServer,
+    App, HttpServer, HttpResponse, HttpRequest,
 };
 
 pub mod api;
@@ -35,6 +35,7 @@ async fn main() -> std::io::Result<()> {
             .route("members", web::post().to(api::get_members_fn))
             .route("validate_session_id", web::post().to(api::validate_session_id_fn))
             .route("create_session", web::post().to(api::create_session_fn))
+            .route("heartbeat", web::get().to(|_: HttpRequest| HttpResponse::Ok()))
     })
     .bind(("0.0.0.0", port))?
     .run()
