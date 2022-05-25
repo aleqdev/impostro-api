@@ -6,6 +6,7 @@ use actix_web::{
 };
 
 pub mod api;
+pub mod ws;
 
 pub type DataTy = Data<Mutex<impostro_shared::ImpostroData>>;
 
@@ -35,9 +36,10 @@ async fn main() -> std::io::Result<()> {
             .route("members", web::post().to(api::get_members_fn))
             .route("validate_session_id", web::post().to(api::validate_session_id_fn))
             .route("create_session", web::post().to(api::create_session_fn))
+            .route("ws", web::get().to(api::index::index))
             .route("heartbeat", web::get().to(|_: HttpRequest| HttpResponse::Ok()))
     })
-    .bind(("0.0.0.0", port))?
+    .bind(("localhost", port))?
     .run()
     .await
 }

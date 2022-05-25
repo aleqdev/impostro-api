@@ -3,6 +3,7 @@ pub mod get_members;
 pub mod get_sessions;
 pub mod validate_session_id;
 pub mod create_session;
+pub mod index;
 
 pub use get_groups::get_groups as get_groups_fn;
 pub use get_members::get_members as get_members_fn;
